@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../components/app_bar/default_app_bar.dart';
 import '../../../../components/buttons/primary_button.dart';
 import '../../../../components/screens/error_screen.dart';
 import '../../../../components/screens/loading_screen.dart';
+import '../../../../navigation/screen_names.dart';
 import '../../cubit/companies_cubit.dart';
 import '../../cubit/companies_state.dart';
 
@@ -49,7 +51,8 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                             vertical: 21,
                           ),
                           child: PrimaryButton(
-                            onPressed: () {},
+                            onPressed: () =>
+                                context.goNamed(ScreenNames.assets),
                             text: company.name ?? '',
                           ),
                         ),

@@ -15,7 +15,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FilledButton.icon(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ButtonStyle(
         padding: WidgetStateProperty.all(const EdgeInsets.all(0)),
         elevation: WidgetStateProperty.all<double>(0.0),

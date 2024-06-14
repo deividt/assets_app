@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../navigation/screen_names.dart';
+import '../../../assets/presentation/routes/assets_routes.dart';
 import '../../providers/companies_provider.dart';
 import '../screens/companies_screen.dart';
 
@@ -15,5 +16,8 @@ class CompaniesRoutes {
         const CompaniesProvider(
       child: CompaniesScreen(),
     ),
+    routes: <RouteBase>[
+      AssetsRoutes.routes,
+    ],
   );
 }
