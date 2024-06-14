@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../components/app_bar/default_app_bar.dart';
+import '../../../../components/buttons/primary_button.dart';
 import '../../../../components/screens/error_screen.dart';
 import '../../../../components/screens/loading_screen.dart';
 import '../../cubit/companies_cubit.dart';
@@ -33,14 +35,27 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
 
         case SuccessState():
           return Scaffold(
-            appBar: AppBar(title: const Text('Home Screen')),
-            body: Center(
-              child: ListView(
-                children: state.companies
-                    .map(
-                      (company) => Text(company.name ?? ''),
-                    )
-                    .toList(),
+            appBar: const DefaultAppBar(
+              title: 'TRACTIAN',
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(21.0),
+              child: Center(
+                child: ListView(
+                  children: state.companies
+                      .map(
+                        (company) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 21,
+                          ),
+                          child: PrimaryButton(
+                            onPressed: () {},
+                            text: company.name ?? '',
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ),
           );
