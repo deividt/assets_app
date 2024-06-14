@@ -11,7 +11,7 @@ class AssetsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: "Tree View Application",
+      title: 'Tree View Application',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         S.delegate,

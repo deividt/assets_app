@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'assets_app.dart';
+import 'constants/urls.dart';
+import 'global_provider.dart';
+import 'services/dio/dio_service.dart';
 
-void main() {
+void main() async {
+  final dioService = await DioService().setup(
+    baseUrl: Urls.apiBaseUrl,
+  );
+
   runApp(
-    const AssetsApp(),
+    GlobalProvider(
+      dio: dioService,
+      child: const AssetsApp(),
+    ),
   );
 }
