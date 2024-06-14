@@ -19,7 +19,9 @@ class GlobalProvider extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         RepositoryProvider<Dio>.value(value: dio),
-        RepositoryProvider(create: (_) => AppRoutes()),
+        RepositoryProvider(
+          create: (_) => AppRoutes(),
+        ),
       ],
       child: child,
     );

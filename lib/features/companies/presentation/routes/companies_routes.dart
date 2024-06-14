@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../navigation/screen_names.dart';
+import '../../providers/companies_provider.dart';
 import '../screens/companies_screen.dart';
 
 class CompaniesRoutes {
@@ -11,7 +12,8 @@ class CompaniesRoutes {
     name: ScreenNames.companies,
     path: companies,
     builder: (BuildContext context, GoRouterState state) =>
-        const CompaniesScreen(),
-    routes: const <RouteBase>[],
+        const CompaniesProvider(
+      child: CompaniesScreen(),
+    ),
   );
 }

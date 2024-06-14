@@ -1,3 +1,3 @@
 class Urls {
-  static const String apiBaseUrl = 'fake-api.tractian.com';
+  static const String apiBaseUrl = 'http://fake-api.tractian.com';
 }
