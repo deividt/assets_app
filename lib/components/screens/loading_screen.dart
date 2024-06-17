@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/theme_colors.dart';
+
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({
     super.key,
@@ -10,8 +12,13 @@ class LoadingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: const Center(
-        child: Text(
-          'LOADING SCREEN',
+        child: SizedBox(
+          width: 56,
+          height: 56,
+          child: CircularProgressIndicator(
+            color: ThemeColors.appBarBackgroundColor,
+            backgroundColor: Colors.transparent,
+          ),
         ),
       ),
     );
