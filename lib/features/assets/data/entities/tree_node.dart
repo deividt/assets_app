@@ -1,5 +1,6 @@
 import '../../../companies/data/entities/companies_assets.dart';
 import '../../../companies/data/entities/companies_locations.dart';
+import '../enums/node_type.dart';
 
 class TreeNode {
   TreeNode({
@@ -11,7 +12,7 @@ class TreeNode {
 
   final String id;
   final String name;
-  final String type; // 'location', 'asset' or 'component'
+  final NodeType type; // 'location', 'asset' or 'component'
   final List<TreeNode> children;
 }
 
@@ -27,7 +28,7 @@ Map<String, TreeNode> buildTree(
     nodes[location.id!] = TreeNode(
       id: location.id!,
       name: location.name!,
-      type: 'location',
+      type: NodeType.location,
       children: [],
     );
   }
@@ -40,7 +41,7 @@ Map<String, TreeNode> buildTree(
     nodes[asset.id!] = TreeNode(
       id: asset.id!,
       name: asset.name!,
-      type: asset.sensorType == null ? 'asset' : 'component',
+      type: asset.sensorType == null ? NodeType.asset : NodeType.component,
       children: [],
     );
   }

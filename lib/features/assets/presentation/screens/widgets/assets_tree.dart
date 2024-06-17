@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/entities/tree_node.dart';
+import '../../../data/enums/node_type.dart';
 
 class AssetsTree extends StatelessWidget {
   const AssetsTree({
@@ -40,13 +41,13 @@ class AssetsTree extends StatelessWidget {
     );
   }
 
-  Widget _getIconForType(String type) {
+  Widget _getIconForType(NodeType type) {
     switch (type) {
-      case 'location':
+      case NodeType.location:
         return const Icon(Icons.location_on);
-      case 'asset':
+      case NodeType.asset:
         return const Icon(Icons.build);
-      case 'component':
+      case NodeType.component:
         return const Icon(Icons.settings);
       default:
         return const Icon(Icons.device_unknown);
