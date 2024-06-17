@@ -39,6 +39,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
           return Scaffold(
             appBar: const DefaultAppBar(
               title: 'TRACTIAN',
+              showBackButton: false,
             ),
             body: Padding(
               padding: const EdgeInsets.all(21.0),
