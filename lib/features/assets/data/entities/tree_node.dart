@@ -1,18 +1,24 @@
+import '../../../../util/extensions/string_extensions.dart';
 import '../../../companies/data/entities/companies_assets.dart';
 import '../../../companies/data/entities/companies_locations.dart';
-import '../enums/node_type.dart';
+import '../enums/asset_type.dart';
+import '../enums/sensor_status.dart';
+import '../enums/sensor_type.dart';
 
 class TreeNode {
-  TreeNode({
-    required this.id,
-    required this.name,
-    required this.type,
-    required this.children,
-  });
+  TreeNode(
+      {required this.id,
+      required this.name,
+      required this.assetType,
+      required this.children,
+      this.sensorType,
+      this.sensorStatus});
 
   final String id;
   final String name;
-  final NodeType type; // 'location', 'asset' or 'component'
+  final AssetType assetType;
+  final SensorType? sensorType;
+  final SensorStatus? sensorStatus;
   final List<TreeNode> children;
 }
 
@@ -28,7 +34,7 @@ Map<String, TreeNode> buildTree(
     nodes[location.id!] = TreeNode(
       id: location.id!,
       name: location.name!,
-      type: NodeType.location,
+      assetType: AssetType.location,
       children: [],
     );
   }
@@ -41,7 +47,12 @@ Map<String, TreeNode> buildTree(
     nodes[asset.id!] = TreeNode(
       id: asset.id!,
       name: asset.name!,
-      type: asset.sensorType == null ? NodeType.asset : NodeType.component,
+      assetType:
+          asset.sensorType == null ? AssetType.asset : AssetType.component,
+      sensorType:
+          asset.sensorType?.enumFromString(SensorType.values) ?? SensorType.na,
+      sensorStatus:
+          asset.status?.enumFromString(SensorStatus.values) ?? SensorStatus.na,
       children: [],
     );
   }

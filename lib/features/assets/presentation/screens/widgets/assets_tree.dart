@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../components/icons/default_icon.dart';
 import '../../../../../components/icons/icon_tokens.dart';
 import '../../../data/entities/tree_node.dart';
-import '../../../data/enums/node_type.dart';
+import '../../../data/enums/asset_type.dart';
 
 class AssetsTree extends StatelessWidget {
   const AssetsTree({
@@ -29,7 +29,7 @@ class AssetsTree extends StatelessWidget {
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _getIconForType(node.type),
+          _getIconForType(node.assetType),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -43,13 +43,13 @@ class AssetsTree extends StatelessWidget {
     );
   }
 
-  Widget _getIconForType(NodeType type) {
+  Widget _getIconForType(AssetType type) {
     switch (type) {
-      case NodeType.location:
+      case AssetType.location:
         return const DefaultIcon(name: IconTokens.location);
-      case NodeType.asset:
+      case AssetType.asset:
         return const DefaultIcon(name: IconTokens.asset);
-      case NodeType.component:
+      case AssetType.component:
         return const DefaultIcon(name: IconTokens.component);
       default:
         return const Icon(Icons.question_mark);

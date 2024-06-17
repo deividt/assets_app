@@ -1,4 +1,4 @@
-enum NodeType {
+enum AssetType {
   location,
   asset,
   component,
