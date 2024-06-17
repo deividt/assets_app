@@ -49,10 +49,8 @@ Map<String, TreeNode> buildTree(
       name: asset.name!,
       assetType:
           asset.sensorType == null ? AssetType.asset : AssetType.component,
-      sensorType:
-          asset.sensorType?.enumFromString(SensorType.values) ?? SensorType.na,
-      sensorStatus:
-          asset.status?.enumFromString(SensorStatus.values) ?? SensorStatus.na,
+      sensorType: asset.sensorType?.enumFromString(SensorType.values),
+      sensorStatus: asset.status?.enumFromString(SensorStatus.values),
       children: [],
     );
   }
