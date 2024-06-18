@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../components/app_bar/default_app_bar.dart';
+import '../../../../components/buttons/toggle_button.dart';
 import '../../../../components/screens/error_screen.dart';
 import '../../../../components/screens/loading_screen.dart';
+import '../../../../l10n/generated/l10n.dart';
 import '../../cubit/assets_cubit.dart';
 import '../../cubit/assets_state.dart';
 import 'widgets/assets_tree.dart';
@@ -36,10 +38,34 @@ class _AssetsScreenState extends State<AssetsScreen> {
 
         case SuccessState():
           return Scaffold(
-            appBar: const DefaultAppBar(
-              title: 'Assets',
+            appBar: DefaultAppBar(
+              title: S.of(context).assets,
             ),
-            body: AssetsTree(nodes: state.nodes),
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ToggleButton(
+                        text: S.of(context).energySensor,
+                        leadingIcon: Icons.electric_bolt_outlined,
+                      ),
+                      const SizedBox(width: 8),
+                      ToggleButton(
+                        text: S.of(context).critic,
+                        leadingIcon: Icons.error_outline,
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                Expanded(
+                  child: AssetsTree(nodes: state.nodes),
+                ),
+              ],
+            ),
           );
 
         default:
