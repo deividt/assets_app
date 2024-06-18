@@ -20,14 +20,31 @@ class AssetsTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: nodes.values.map(_buildNode).toList(),
+      children: nodes.values.map((node) => AssetTile(node: node)).toList(),
     );
   }
+}
 
-  Widget _buildNode(TreeNode node) {
-    if (node.children.isEmpty) {
+class AssetTile extends StatefulWidget {
+  const AssetTile({
+    super.key,
+    required this.node,
+  });
+
+  final TreeNode node;
+
+  @override
+  _AssetTileState createState() => _AssetTileState();
+}
+
+class _AssetTileState extends State<AssetTile> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.node.children.isEmpty) {
       return ListTile(
-        title: _buildTileRow(node),
+        title: _buildTileRow(widget.node),
       );
     }
 
@@ -36,8 +53,16 @@ class AssetsTree extends StatelessWidget {
       child: ExpansionTile(
         controlAffinity: ListTileControlAffinity.leading,
         childrenPadding: const EdgeInsets.only(left: 12),
-        title: _buildTileRow(node),
-        children: node.children.map(_buildNode).toList(),
+        title: _buildTileRow(widget.node),
+        leading: Icon(_isExpanded ? Icons.expand_more : Icons.expand_less),
+        children: widget.node.children
+            .map((child) => AssetTile(node: child))
+            .toList(),
+        onExpansionChanged: (bool expanded) {
+          setState(() {
+            _isExpanded = expanded;
+          });
+        },
       ),
     );
   }
