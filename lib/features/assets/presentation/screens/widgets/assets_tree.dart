@@ -52,7 +52,10 @@ class _AssetTileState extends State<AssetTile> {
       data: defaultTheme.copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
         controlAffinity: ListTileControlAffinity.leading,
-        childrenPadding: const EdgeInsets.only(left: 12),
+        childrenPadding: const EdgeInsets.only(left: 28),
+        tilePadding: const EdgeInsets.only(left: 8),
+        dense: true,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         title: _buildTileRow(widget.node),
         leading: Icon(_isExpanded ? Icons.expand_more : Icons.expand_less),
         children: widget.node.children
