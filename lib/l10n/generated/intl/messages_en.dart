@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "assets": MessageLookupByLibrary.simpleMessage("Assets"),
         "critic": MessageLookupByLibrary.simpleMessage("Crítico"),
         "energySensor":
-            MessageLookupByLibrary.simpleMessage("Sensor de Energia")
+            MessageLookupByLibrary.simpleMessage("Sensor de Energia"),
+        "searchAssetOrLocal":
+            MessageLookupByLibrary.simpleMessage("Buscar Ativo ou Local")
       };
 }

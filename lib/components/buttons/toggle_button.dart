@@ -37,7 +37,7 @@ class _ToggleButtonState extends State<ToggleButton> {
           border: _isClicked
               ? null
               : Border.all(color: ThemeColors.secondaryTextColor),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(3),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

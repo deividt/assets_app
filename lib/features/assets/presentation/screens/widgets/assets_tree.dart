@@ -20,12 +20,13 @@ class AssetsTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(8),
       children: nodes.values
-          .map((node) => AssetTile(
-                node: node,
-                isRoot: true,
-              ))
+          .map(
+            (node) => AssetTile(
+              node: node,
+              isRoot: true,
+            ),
+          )
           .toList(),
     );
   }
@@ -130,8 +131,8 @@ class _AssetTileState extends State<AssetTile> {
     switch (sensorType) {
       case SensorType.energy:
         return Icon(
-          size: 12,
-          Icons.electric_bolt_outlined,
+          size: 14,
+          Icons.bolt_outlined,
           color: _getIconColorBySensorStatus(sensorStatus),
         );
       case SensorType.vibration:

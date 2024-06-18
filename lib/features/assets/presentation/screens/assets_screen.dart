@@ -5,6 +5,7 @@ import '../../../../components/app_bar/default_app_bar.dart';
 import '../../../../components/buttons/toggle_button.dart';
 import '../../../../components/screens/error_screen.dart';
 import '../../../../components/screens/loading_screen.dart';
+import '../../../../components/text_fields/search_text_field.dart';
 import '../../../../l10n/generated/l10n.dart';
 import '../../cubit/assets_cubit.dart';
 import '../../cubit/assets_state.dart';
@@ -41,30 +42,41 @@ class _AssetsScreenState extends State<AssetsScreen> {
             appBar: DefaultAppBar(
               title: S.of(context).assets,
             ),
-            body: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ToggleButton(
-                        text: S.of(context).energySensor,
-                        leadingIcon: Icons.electric_bolt_outlined,
-                      ),
-                      const SizedBox(width: 8),
-                      ToggleButton(
-                        text: S.of(context).critic,
-                        leadingIcon: Icons.error_outline,
-                      ),
-                    ],
+            body: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        SearchTextField(
+                          hintText: S.of(context).searchAssetOrLocal,
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ToggleButton(
+                              text: S.of(context).energySensor,
+                              leadingIcon: Icons.bolt_outlined,
+                            ),
+                            const SizedBox(width: 8),
+                            ToggleButton(
+                              text: S.of(context).critic,
+                              leadingIcon: Icons.error_outline,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const Divider(),
-                Expanded(
-                  child: AssetsTree(nodes: state.nodes),
-                ),
-              ],
+                  const Divider(),
+                  Expanded(
+                    child: AssetsTree(nodes: state.nodes),
+                  ),
+                ],
+              ),
             ),
           );
 

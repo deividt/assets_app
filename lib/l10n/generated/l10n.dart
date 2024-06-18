@@ -79,6 +79,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Buscar Ativo ou Local`
+  String get searchAssetOrLocal {
+    return Intl.message(
+      'Buscar Ativo ou Local',
+      name: 'searchAssetOrLocal',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
