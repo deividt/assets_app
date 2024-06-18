@@ -20,7 +20,13 @@ class AssetsTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: nodes.values.map((node) => AssetTile(node: node)).toList(),
+      padding: const EdgeInsets.all(8),
+      children: nodes.values
+          .map((node) => AssetTile(
+                node: node,
+                isRoot: true,
+              ))
+          .toList(),
     );
   }
 }
@@ -29,9 +35,11 @@ class AssetTile extends StatefulWidget {
   const AssetTile({
     super.key,
     required this.node,
+    required this.isRoot,
   });
 
   final TreeNode node;
+  final bool isRoot;
 
   @override
   State<AssetTile> createState() => _AssetTileState();
@@ -46,6 +54,7 @@ class _AssetTileState extends State<AssetTile> {
       return ListTile(
         title: _buildTileRow(widget.node),
         visualDensity: const VisualDensity(vertical: -4),
+        contentPadding: EdgeInsets.only(left: widget.isRoot ? 0 : 40),
       );
     }
 
@@ -53,14 +62,21 @@ class _AssetTileState extends State<AssetTile> {
       data: defaultTheme.copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
         controlAffinity: ListTileControlAffinity.leading,
-        childrenPadding: const EdgeInsets.only(left: 28),
-        tilePadding: const EdgeInsets.only(left: 10),
+        childrenPadding: const EdgeInsets.only(left: 20),
+        tilePadding: const EdgeInsets.only(),
         dense: true,
         visualDensity: const VisualDensity(vertical: -4),
         title: _buildTileRow(widget.node),
-        leading: Icon(_isExpanded ? Icons.expand_more : Icons.expand_less),
+        leading: Icon(
+          _isExpanded ? Icons.expand_more : Icons.expand_less,
+        ),
         children: widget.node.children
-            .map((child) => AssetTile(node: child))
+            .map(
+              (child) => AssetTile(
+                node: child,
+                isRoot: false,
+              ),
+            )
             .toList(),
         onExpansionChanged: (bool expanded) {
           setState(() {
@@ -73,6 +89,7 @@ class _AssetTileState extends State<AssetTile> {
 
   Widget _buildTileRow(TreeNode node) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _getAssetTypeIcon(node.assetType),
@@ -82,7 +99,10 @@ class _AssetTileState extends State<AssetTile> {
             child: Text(
               node.name,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ),
@@ -110,16 +130,19 @@ class _AssetTileState extends State<AssetTile> {
     switch (sensorType) {
       case SensorType.energy:
         return Icon(
+          size: 12,
           Icons.electric_bolt_outlined,
           color: _getIconColorBySensorStatus(sensorStatus),
         );
       case SensorType.vibration:
         return Icon(
+          size: 12,
           Icons.circle,
           color: _getIconColorBySensorStatus(sensorStatus),
         );
       default:
         return Icon(
+          size: 12,
           Icons.question_mark,
           color: _getIconColorBySensorStatus(sensorStatus),
         );

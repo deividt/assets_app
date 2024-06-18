@@ -34,8 +34,9 @@ class _ToggleButtonState extends State<ToggleButton> {
         decoration: BoxDecoration(
           color:
               _isClicked ? ThemeColors.primarySurfaceColor : Colors.transparent,
-          border:
-              _isClicked ? null : Border.all(color: ThemeColors.primaryColor),
+          border: _isClicked
+              ? null
+              : Border.all(color: ThemeColors.secondaryTextColor),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -47,7 +48,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 size: 14,
                 color: _isClicked
                     ? ThemeColors.primaryTextColor
-                    : ThemeColors.primaryColor,
+                    : ThemeColors.secondaryTextColor,
               ),
               const SizedBox(width: 8),
             ],
@@ -58,7 +59,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 fontWeight: FontWeight.w500,
                 color: _isClicked
                     ? ThemeColors.primaryTextColor
-                    : ThemeColors.primaryColor,
+                    : ThemeColors.secondaryTextColor,
               ),
             ),
           ],
