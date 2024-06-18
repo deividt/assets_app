@@ -44,6 +44,7 @@ class _ToggleButtonState extends State<ToggleButton> {
             if (widget.leadingIcon != null) ...[
               Icon(
                 widget.leadingIcon,
+                size: 14,
                 color: _isClicked
                     ? ThemeColors.primaryTextColor
                     : ThemeColors.primaryColor,
@@ -53,6 +54,8 @@ class _ToggleButtonState extends State<ToggleButton> {
             Text(
               widget.text,
               style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
                 color: _isClicked
                     ? ThemeColors.primaryTextColor
                     : ThemeColors.primaryColor,

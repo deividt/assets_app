@@ -14,6 +14,7 @@ var defaultTheme = ThemeData(
       TargetPlatform.windows: _defaultPageTransitionBuilder,
     },
   ),
+  fontFamily: 'Roboto',
   primaryColor: ThemeColors.primaryColor,
   useMaterial3: true,
 );

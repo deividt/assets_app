@@ -45,6 +45,7 @@ class _AssetTileState extends State<AssetTile> {
     if (widget.node.children.isEmpty) {
       return ListTile(
         title: _buildTileRow(widget.node),
+        visualDensity: const VisualDensity(vertical: -4),
       );
     }
 
@@ -53,9 +54,9 @@ class _AssetTileState extends State<AssetTile> {
       child: ExpansionTile(
         controlAffinity: ListTileControlAffinity.leading,
         childrenPadding: const EdgeInsets.only(left: 28),
-        tilePadding: const EdgeInsets.only(left: 8),
+        tilePadding: const EdgeInsets.only(left: 10),
         dense: true,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        visualDensity: const VisualDensity(vertical: -4),
         title: _buildTileRow(widget.node),
         leading: Icon(_isExpanded ? Icons.expand_more : Icons.expand_less),
         children: widget.node.children
@@ -77,10 +78,11 @@ class _AssetTileState extends State<AssetTile> {
         _getAssetTypeIcon(node.assetType),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 2),
             child: Text(
               node.name,
               overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
           ),
         ),
