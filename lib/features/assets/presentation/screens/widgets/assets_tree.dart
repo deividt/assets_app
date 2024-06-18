@@ -20,9 +20,7 @@ class AssetsTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: nodes.values
-          .expand((rootNode) => rootNode.children.map(_buildNode))
-          .toList(),
+      children: nodes.values.map(_buildNode).toList(),
     );
   }
 

@@ -25,6 +25,7 @@ class TreeNode {
 Map<String, TreeNode> buildTree(
     List<CompaniesLocations> locations, List<CompaniesAssets> assets) {
   Map<String, TreeNode> nodes = {};
+  Set<String> childNodeIds = {};
 
   for (var location in locations) {
     if (location.id == null || location.name == null) {
@@ -58,15 +59,22 @@ Map<String, TreeNode> buildTree(
   for (var asset in assets) {
     if (asset.parentId != null) {
       nodes[asset.parentId!]!.children.add(nodes[asset.id]!);
+      childNodeIds.add(asset.id!);
     } else if (asset.locationId != null) {
       nodes[asset.locationId!]!.children.add(nodes[asset.id]!);
+      childNodeIds.add(asset.id!);
     }
   }
 
   for (var location in locations) {
     if (location.parentId != null) {
       nodes[location.parentId!]!.children.add(nodes[location.id]!);
+      childNodeIds.add(location.id!);
     }
+  }
+
+  for (var childNodeId in childNodeIds) {
+    nodes.remove(childNodeId);
   }
 
   return nodes;

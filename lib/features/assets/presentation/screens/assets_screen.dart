@@ -39,10 +39,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
             appBar: const DefaultAppBar(
               title: 'Assets',
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(21.0),
-              child: AssetsTree(nodes: state.nodes),
-            ),
+            body: AssetsTree(nodes: state.nodes),
           );
 
         default:
