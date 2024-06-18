@@ -17,7 +17,8 @@ class PrimaryButton extends StatelessWidget {
     return FilledButton.icon(
       onPressed: onPressed,
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(const EdgeInsets.all(0)),
+        padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 32)),
         elevation: WidgetStateProperty.all<double>(0.0),
         shape: WidgetStateProperty.all<OutlinedBorder>(
           RoundedRectangleBorder(
@@ -33,15 +34,15 @@ class PrimaryButton extends StatelessWidget {
           },
         ),
       ),
-      icon: const Icon(Icons.account_tree_outlined), // Set your desired icon
-      label: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: ThemeColors.primaryTextColor,
-            fontSize: 24,
-          ),
+      icon: const Icon(
+        Icons.account_tree_outlined,
+        color: ThemeColors.primaryTextColor,
+      ),
+      label: Text(
+        text,
+        style: const TextStyle(
+          color: ThemeColors.primaryTextColor,
+          fontSize: 24,
         ),
       ),
     );
