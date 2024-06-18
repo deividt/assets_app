@@ -6,6 +6,6 @@ class ThemeColors {
   static const Color primarySurfaceColor = Color.fromRGBO(33, 136, 255, 1);
   static const Color primarySurfaceDisabledColor = Colors.blueGrey;
   static const Color primaryTextColor = Colors.white;
-  static const Color errorColor = Colors.red;
-  static const Color okColor = Colors.green;
+  static const Color errorColor = Color.fromRGBO(237, 56, 51, 1);
+  static const Color okColor = Color.fromRGBO(82, 196, 26, 1);
 }

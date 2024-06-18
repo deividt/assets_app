@@ -34,7 +34,7 @@ class AssetTile extends StatefulWidget {
   final TreeNode node;
 
   @override
-  _AssetTileState createState() => _AssetTileState();
+  State<AssetTile> createState() => _AssetTileState();
 }
 
 class _AssetTileState extends State<AssetTile> {
