@@ -7,11 +7,13 @@ class SearchTextField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.icon = Icons.search,
+    this.onChanged,
   });
 
   final String hintText;
   final IconData? icon;
   final double height = 36;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class SearchTextField extends StatelessWidget {
             color: ThemeColors.secondaryTextColor,
           ),
         ),
+        onChanged: onChanged,
       ),
     );
   }

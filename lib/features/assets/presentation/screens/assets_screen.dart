@@ -52,6 +52,9 @@ class _AssetsScreenState extends State<AssetsScreen> {
                       children: [
                         SearchTextField(
                           hintText: S.of(context).searchAssetOrLocal,
+                          onChanged: (value) => context
+                              .read<AssetsCubit>()
+                              .updateSearchQuery(value),
                         ),
                         const SizedBox(height: 8),
                         Row(

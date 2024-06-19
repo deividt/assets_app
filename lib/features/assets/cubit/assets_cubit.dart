@@ -10,14 +10,13 @@ import '../data/enums/sensor_type.dart';
 import 'assets_state.dart';
 
 class AssetsCubit extends Cubit<AssetsState> {
-  AssetsCubit(
-    this._repository,
-  ) : super(const AssetsState.loading());
+  AssetsCubit(this._repository) : super(const AssetsState.loading());
 
   final ICompaniesRepository _repository;
   late Map<String, TreeNode> _allNodes;
   bool _isEnergySensorFilterActive = false;
   bool _isCriticStatusFilterActive = false;
+  String _searchQuery = '';
 
   Future<void> loadAssets(String companyId) async {
     emit(const AssetsState.loading());
@@ -55,8 +54,15 @@ class AssetsCubit extends Cubit<AssetsState> {
     _applyFilters();
   }
 
+  void updateSearchQuery(String query) {
+    _searchQuery = query;
+    _applyFilters();
+  }
+
   void _applyFilters() {
-    if (!_isEnergySensorFilterActive && !_isCriticStatusFilterActive) {
+    if (!_isEnergySensorFilterActive &&
+        !_isCriticStatusFilterActive &&
+        _searchQuery.isEmpty) {
       emit(AssetsState.success(_allNodes));
       return;
     }
@@ -83,6 +89,7 @@ class AssetsCubit extends Cubit<AssetsState> {
 
   bool _nodeMatchesFilter(TreeNode node) {
     bool matches = true;
+
     if (_isEnergySensorFilterActive) {
       matches &= (node.assetType == AssetType.component &&
           node.sensorType == SensorType.energy);
@@ -90,6 +97,10 @@ class AssetsCubit extends Cubit<AssetsState> {
 
     if (_isCriticStatusFilterActive) {
       matches &= (node.sensorStatus == SensorStatus.alert);
+    }
+
+    if (_searchQuery.isNotEmpty) {
+      matches &= node.name.toLowerCase().contains(_searchQuery.toLowerCase());
     }
 
     return matches;
@@ -101,5 +112,6 @@ class AssetsCubit extends Cubit<AssetsState> {
     }
 
     map[node.id] = node;
+    // TODO: Add parents when button filters are applied
   }
 }
