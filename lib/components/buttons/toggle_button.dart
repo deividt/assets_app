@@ -7,10 +7,12 @@ class ToggleButton extends StatefulWidget {
     super.key,
     required this.text,
     this.leadingIcon,
+    this.onTap,
   });
 
   final String text;
   final IconData? leadingIcon;
+  final VoidCallback? onTap;
 
   @override
   State<ToggleButton> createState() => _ToggleButtonState();
@@ -23,6 +25,7 @@ class _ToggleButtonState extends State<ToggleButton> {
     setState(() {
       _isClicked = !_isClicked;
     });
+    widget.onTap?.call();
   }
 
   @override

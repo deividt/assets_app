@@ -60,11 +60,17 @@ class _AssetsScreenState extends State<AssetsScreen> {
                             ToggleButton(
                               text: S.of(context).energySensor,
                               leadingIcon: Icons.bolt_outlined,
+                              onTap: () => context
+                                  .read<AssetsCubit>()
+                                  .filterByEnergySensor(),
                             ),
                             const SizedBox(width: 8),
                             ToggleButton(
                               text: S.of(context).critic,
                               leadingIcon: Icons.error_outline,
+                              onTap: () => context
+                                  .read<AssetsCubit>()
+                                  .filterByCriticStatus(),
                             ),
                           ],
                         ),
