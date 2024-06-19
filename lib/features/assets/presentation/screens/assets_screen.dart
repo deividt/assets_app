@@ -92,5 +92,5 @@ class _AssetsScreenState extends State<AssetsScreen> {
     });
   }
 
-  loadAssets() => context.read<AssetsCubit>().loadCompanies(widget.companyId);
+  loadAssets() => context.read<AssetsCubit>().loadAssets(widget.companyId);
 }

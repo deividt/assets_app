@@ -19,7 +19,7 @@ class AssetsCubit extends Cubit<AssetsState> {
   bool _isEnergySensorFilterActive = false;
   bool _isCriticStatusFilterActive = false;
 
-  Future<void> loadCompanies(String companyId) async {
+  Future<void> loadAssets(String companyId) async {
     emit(const AssetsState.loading());
 
     List<CompaniesLocations> locations = [];
@@ -62,44 +62,44 @@ class AssetsCubit extends Cubit<AssetsState> {
     }
 
     final filteredNodes = <String, TreeNode>{};
-
     _allNodes.forEach((key, node) {
-      if (_nodeMatchesAnyFilter(node)) {
-        _addNodeWithParents(filteredNodes, node);
-      }
+      _buildNodeAndParentIfMatchesFilter(filteredNodes, node);
     });
 
     emit(AssetsState.success(filteredNodes));
   }
 
-  bool _nodeMatchesAnyFilter(TreeNode node) {
+  void _buildNodeAndParentIfMatchesFilter(
+      Map<String, TreeNode> filteredNodes, TreeNode node) {
+    if (_nodeMatchesFilter(node)) {
+      _addNodeWithParents(filteredNodes, node);
+      return;
+    }
+
+    for (final child in node.children) {
+      _buildNodeAndParentIfMatchesFilter(filteredNodes, child);
+    }
+  }
+
+  bool _nodeMatchesFilter(TreeNode node) {
     bool matches = true;
     if (_isEnergySensorFilterActive) {
       matches &= (node.assetType == AssetType.component &&
           node.sensorType == SensorType.energy);
     }
+
     if (_isCriticStatusFilterActive) {
       matches &= (node.sensorStatus == SensorStatus.alert);
     }
-    if (matches) {
-      return true;
-    }
-    for (final child in node.children) {
-      if (_nodeMatchesAnyFilter(child)) {
-        return true;
-      }
-    }
-    return false;
+
+    return matches;
   }
 
   void _addNodeWithParents(Map<String, TreeNode> map, TreeNode node) {
-    if (!map.containsKey(node.id)) {
-      map[node.id] = node;
-      _allNodes.forEach((key, parentNode) {
-        if (parentNode.children.contains(node)) {
-          _addNodeWithParents(map, parentNode);
-        }
-      });
+    if (map.containsKey(node.id)) {
+      return;
     }
+
+    map[node.id] = node;
   }
 }
