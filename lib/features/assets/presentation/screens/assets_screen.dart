@@ -62,7 +62,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                               leadingIcon: Icons.bolt_outlined,
                               onTap: () => context
                                   .read<AssetsCubit>()
-                                  .filterByEnergySensor(),
+                                  .toggleEnergySensorFilter(),
                             ),
                             const SizedBox(width: 8),
                             ToggleButton(
@@ -70,7 +70,7 @@ class _AssetsScreenState extends State<AssetsScreen> {
                               leadingIcon: Icons.error_outline,
                               onTap: () => context
                                   .read<AssetsCubit>()
-                                  .filterByCriticStatus(),
+                                  .toggleCriticStatusFilter(),
                             ),
                           ],
                         ),

@@ -16,6 +16,8 @@ class AssetsCubit extends Cubit<AssetsState> {
 
   final ICompaniesRepository _repository;
   late Map<String, TreeNode> _allNodes;
+  bool _isEnergySensorFilterActive = false;
+  bool _isCriticStatusFilterActive = false;
 
   Future<void> loadCompanies(String companyId) async {
     emit(const AssetsState.loading());
@@ -43,21 +45,26 @@ class AssetsCubit extends Cubit<AssetsState> {
     emit(AssetsState.success(_allNodes));
   }
 
-  void filterByEnergySensor() {
-    _applyFilter((node) =>
-        node.assetType == AssetType.component &&
-        node.sensorType == SensorType.energy);
+  void toggleEnergySensorFilter() {
+    _isEnergySensorFilterActive = !_isEnergySensorFilterActive;
+    _applyFilters();
   }
 
-  void filterByCriticStatus() {
-    _applyFilter((node) => node.sensorStatus == SensorStatus.alert);
+  void toggleCriticStatusFilter() {
+    _isCriticStatusFilterActive = !_isCriticStatusFilterActive;
+    _applyFilters();
   }
 
-  void _applyFilter(bool Function(TreeNode) filter) {
+  void _applyFilters() {
+    if (!_isEnergySensorFilterActive && !_isCriticStatusFilterActive) {
+      emit(AssetsState.success(_allNodes));
+      return;
+    }
+
     final filteredNodes = <String, TreeNode>{};
 
     _allNodes.forEach((key, node) {
-      if (_nodeMatchesFilter(node, filter)) {
+      if (_nodeMatchesAnyFilter(node)) {
         _addNodeWithParents(filteredNodes, node);
       }
     });
@@ -65,12 +72,20 @@ class AssetsCubit extends Cubit<AssetsState> {
     emit(AssetsState.success(filteredNodes));
   }
 
-  bool _nodeMatchesFilter(TreeNode node, bool Function(TreeNode) filter) {
-    if (filter(node)) {
+  bool _nodeMatchesAnyFilter(TreeNode node) {
+    bool matches = true;
+    if (_isEnergySensorFilterActive) {
+      matches &= (node.assetType == AssetType.component &&
+          node.sensorType == SensorType.energy);
+    }
+    if (_isCriticStatusFilterActive) {
+      matches &= (node.sensorStatus == SensorStatus.alert);
+    }
+    if (matches) {
       return true;
     }
     for (final child in node.children) {
-      if (_nodeMatchesFilter(child, filter)) {
+      if (_nodeMatchesAnyFilter(child)) {
         return true;
       }
     }

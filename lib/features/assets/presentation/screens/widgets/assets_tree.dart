@@ -62,6 +62,7 @@ class _AssetTileState extends State<AssetTile> {
     return Theme(
       data: defaultTheme.copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
+        initiallyExpanded: true,
         controlAffinity: ListTileControlAffinity.leading,
         childrenPadding: const EdgeInsets.only(left: 20),
         tilePadding: const EdgeInsets.only(),
