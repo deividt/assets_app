@@ -5,6 +5,7 @@ import '../../../../components/app_bar/default_app_bar.dart';
 import '../../../../components/buttons/primary_button.dart';
 import '../../../../components/screens/error_screen.dart';
 import '../../../../components/screens/loading_screen.dart';
+import '../../../../l10n/generated/l10n.dart';
 import '../../../../navigation/app_routes.dart';
 import '../../../../navigation/screen_names.dart';
 import '../../cubit/companies_cubit.dart';
@@ -37,9 +38,10 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
 
         case SuccessState():
           return Scaffold(
-            appBar: const DefaultAppBar(
-              title: 'TRACTIAN',
+            appBar: DefaultAppBar(
+              title: S.of(context).tractian,
               showBackButton: false,
+              showLogo: true,
             ),
             body: Padding(
               padding: const EdgeInsets.all(21.0),

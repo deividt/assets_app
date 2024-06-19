@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Tractian`
+  String get tractian {
+    return Intl.message(
+      'Tractian',
+      name: 'tractian',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Assets`
   String get assets {
     return Intl.message(
