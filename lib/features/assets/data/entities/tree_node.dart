@@ -6,13 +6,15 @@ import '../enums/sensor_status.dart';
 import '../enums/sensor_type.dart';
 
 class TreeNode {
-  TreeNode(
-      {required this.id,
-      required this.name,
-      required this.assetType,
-      required this.children,
-      this.sensorType,
-      this.sensorStatus});
+  TreeNode({
+    required this.id,
+    required this.name,
+    required this.assetType,
+    required this.children,
+    this.sensorType,
+    this.sensorStatus,
+    this.parentId,
+  });
 
   final String id;
   final String name;
@@ -20,6 +22,7 @@ class TreeNode {
   final SensorType? sensorType;
   final SensorStatus? sensorStatus;
   final List<TreeNode> children;
+  String? parentId;
 }
 
 Map<String, TreeNode> buildTree(
@@ -58,9 +61,15 @@ Map<String, TreeNode> buildTree(
 
   for (var asset in assets) {
     if (asset.parentId != null) {
+      TreeNode tempNode = nodes[asset.id]!;
+      tempNode.parentId = asset.parentId;
+
       nodes[asset.parentId!]!.children.add(nodes[asset.id]!);
       childNodeIds.add(asset.id!);
     } else if (asset.locationId != null) {
+      TreeNode tempNode = nodes[asset.id]!;
+      tempNode.parentId = asset.locationId;
+
       nodes[asset.locationId!]!.children.add(nodes[asset.id]!);
       childNodeIds.add(asset.id!);
     }
@@ -68,6 +77,9 @@ Map<String, TreeNode> buildTree(
 
   for (var location in locations) {
     if (location.parentId != null) {
+      TreeNode tempNode = nodes[location.id]!;
+      tempNode.parentId = location.parentId;
+
       nodes[location.parentId!]!.children.add(nodes[location.id]!);
       childNodeIds.add(location.id!);
     }
