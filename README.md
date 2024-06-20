@@ -5,6 +5,10 @@ Tree View Application that shows companies Assets.
 This is part of a technical [challenge](https://github.com/tractian/challenges/blob/main/mobile/README.md) for the
 [Tractian](https://tractian.com/) company.
 
+### Demo Video:
+
+A demo video ([video_demo.mp4](https://github.com/deividt/assets_app/blob/master/demo_video.mp4)) is in the root folder.
+
 ### To Improve:
 
 - Improve error handling when retrieving data from the API;
