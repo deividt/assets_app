@@ -23,6 +23,25 @@ class TreeNode {
   final SensorStatus? sensorStatus;
   final List<TreeNode> children;
   String? parentId;
+
+  TreeNode copyWith({
+    String? id,
+    String? name,
+    AssetType? assetType,
+    SensorType? sensorType,
+    SensorStatus? sensorStatus,
+    List<TreeNode>? children,
+  }) {
+    return TreeNode(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      assetType: assetType ?? this.assetType,
+      sensorType: sensorType ?? this.sensorType,
+      sensorStatus: sensorStatus ?? this.sensorStatus,
+      children:
+          children ?? this.children.map((child) => child.copyWith()).toList(),
+    );
+  }
 }
 
 Map<String, TreeNode> buildTree(
@@ -90,4 +109,33 @@ Map<String, TreeNode> buildTree(
   }
 
   return nodes;
+}
+
+TreeNode? getNodeById(Iterable<TreeNode> nodes, String id) {
+  TreeNode? result;
+
+  for (final node in nodes) {
+    result = _getNodeByIdRecursive(node, id);
+    if (result != null) {
+      return result;
+    }
+  }
+
+  return null;
+}
+
+TreeNode? _getNodeByIdRecursive(TreeNode node, String id) {
+  if (node.id == id) {
+    return node;
+  }
+
+  TreeNode? childNode;
+  for (final child in node.children) {
+    childNode = _getNodeByIdRecursive(child, id);
+    if (childNode != null) {
+      return childNode;
+    }
+  }
+
+  return null;
 }

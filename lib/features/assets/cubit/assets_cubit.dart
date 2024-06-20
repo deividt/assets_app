@@ -67,24 +67,15 @@ class AssetsCubit extends Cubit<AssetsState> {
       return;
     }
 
-    final filteredNodes = <String, TreeNode>{};
+    final List<String> filteredIds = [];
     _allNodes.forEach((key, node) {
-      _buildNodeAndParentIfMatchesFilter(filteredNodes, node);
+      _addNodeAndParentIfMatchesFilter(filteredIds, node);
     });
 
+    final filteredNodes = _copyAllNodes();
+    _removeNodesNotInKeys(filteredNodes, filteredIds);
+
     emit(AssetsState.success(filteredNodes));
-  }
-
-  void _buildNodeAndParentIfMatchesFilter(
-      Map<String, TreeNode> filteredNodes, TreeNode node) {
-    if (_nodeMatchesFilter(node)) {
-      _addNodeWithParents(filteredNodes, node);
-      return;
-    }
-
-    for (final child in node.children) {
-      _buildNodeAndParentIfMatchesFilter(filteredNodes, child);
-    }
   }
 
   bool _nodeMatchesFilter(TreeNode node) {
@@ -106,12 +97,53 @@ class AssetsCubit extends Cubit<AssetsState> {
     return matches;
   }
 
-  void _addNodeWithParents(Map<String, TreeNode> map, TreeNode node) {
-    if (map.containsKey(node.id)) {
+  void _addNodeAndParentIfMatchesFilter(
+    List<String> filteredIds,
+    TreeNode node,
+  ) {
+    if (_nodeMatchesFilter(node)) {
+      _addNodeWithParents(filteredIds, node);
       return;
     }
 
-    map[node.id] = node;
-    // TODO: Add parents when button filters are applied
+    for (final child in node.children) {
+      _addNodeAndParentIfMatchesFilter(filteredIds, child);
+    }
+  }
+
+  void _addNodeWithParents(List<String> filteredIds, TreeNode node) {
+    if (filteredIds.contains(node.id)) {
+      return;
+    }
+
+    filteredIds.add(node.id);
+
+    if (node.parentId != null) {
+      TreeNode? parentNode = getNodeById(_allNodes.values, node.parentId!);
+      if (parentNode != null) {
+        _addNodeWithParents(filteredIds, parentNode);
+      }
+    }
+  }
+
+  Map<String, TreeNode> _copyAllNodes() {
+    final copiedNodes = <String, TreeNode>{};
+    _allNodes.forEach((key, node) {
+      copiedNodes[key] = node.copyWith();
+    });
+    return copiedNodes;
+  }
+
+  void _removeNodesNotInKeys(Map<String, TreeNode> nodes, List<String> keys) {
+    nodes.removeWhere((key, node) => !_isNodeInKeys(node, keys));
+  }
+
+  bool _isNodeInKeys(TreeNode node, List<String> keys) {
+    if (!keys.contains(node.id)) {
+      return false;
+    }
+
+    node.children.removeWhere((child) => !_isNodeInKeys(child, keys));
+    return true;
   }
 }
