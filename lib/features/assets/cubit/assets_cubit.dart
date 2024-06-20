@@ -69,7 +69,7 @@ class AssetsCubit extends Cubit<AssetsState> {
 
     final List<String> filteredIds = [];
     _allNodes.forEach((key, node) {
-      _addNodeAndParentIfMatchesFilter(filteredIds, node);
+      _addNodeAndParentsIfMatchesFilter(filteredIds, node);
     });
 
     final filteredNodes = _copyAllNodes();
@@ -97,16 +97,19 @@ class AssetsCubit extends Cubit<AssetsState> {
     return matches;
   }
 
-  void _addNodeAndParentIfMatchesFilter(
+  void _addNodeAndParentsIfMatchesFilter(
     List<String> filteredIds,
     TreeNode node,
   ) {
     if (_nodeMatchesFilter(node)) {
       _addNodeWithParents(filteredIds, node);
+      if (_searchQuery.isNotEmpty) {
+        _addNodeWithChildren(filteredIds, node);
+      }
     }
 
     for (final child in node.children) {
-      _addNodeAndParentIfMatchesFilter(filteredIds, child);
+      _addNodeAndParentsIfMatchesFilter(filteredIds, child);
     }
   }
 
@@ -122,6 +125,16 @@ class AssetsCubit extends Cubit<AssetsState> {
       if (parentNode != null) {
         _addNodeWithParents(filteredIds, parentNode);
       }
+    }
+  }
+
+  void _addNodeWithChildren(List<String> filteredIds, TreeNode node) {
+    if (!filteredIds.contains(node.id)) {
+      filteredIds.add(node.id);
+    }
+
+    for (final child in node.children) {
+      _addNodeWithChildren(filteredIds, child);
     }
   }
 
