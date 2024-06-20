@@ -103,7 +103,6 @@ class AssetsCubit extends Cubit<AssetsState> {
   ) {
     if (_nodeMatchesFilter(node)) {
       _addNodeWithParents(filteredIds, node);
-      return;
     }
 
     for (final child in node.children) {
@@ -129,7 +128,9 @@ class AssetsCubit extends Cubit<AssetsState> {
   Map<String, TreeNode> _copyAllNodes() {
     final copiedNodes = <String, TreeNode>{};
     _allNodes.forEach((key, node) {
-      copiedNodes[key] = node.copyWith();
+      copiedNodes[key] = node.copyWith(
+        children: node.children.map((child) => child.copyWith()).toList(),
+      );
     });
     return copiedNodes;
   }
