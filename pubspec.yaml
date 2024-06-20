@@ -26,12 +26,14 @@ dependencies:
   retrofit: ^4.1.0
 
 dev_dependencies:
+  bloc_test: ^9.1.7
   build_runner: ^2.4.11
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
   intl_utils: ^2.8.7
   json_serializable: ^6.8.0
+  mockito: ^5.4.4
   retrofit_generator: ^8.1.0
 
 

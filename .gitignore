@@ -34,6 +34,7 @@ pubspec.lock
 generated/
 *.g.dart
 *.freezed.dart
+/test/**/*.mocks.dart
 
 # Symbolication related
 app.*.symbols
